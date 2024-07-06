@@ -46,3 +46,7 @@ header h1{
     border: 3px solid black;
     width: 45%;
 }
+
+.playlist-cards, h5{
+    border: 2px solid black;
+}

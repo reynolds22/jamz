@@ -17,9 +17,7 @@ function MainMenu(){
         <div className="main-container">
             <button onClick={handleOnClick}>Create A Playlist</button>
             <div className="playlist-cards">
-                <h3>thing</h3>
-                <h3>thing</h3>
-                <h3>thing</h3>
+                <h2>nothing</h2>
             </div>
         </div>
     );

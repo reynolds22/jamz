@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from "react";
 
-function MakeOrEdit(){
+function MakeOrEdit({onSubmit}){
 
     const [token, setToken] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [tracks, setTracks] = useState([]);
     const [playlist, setPlaylist] = useState([]);
+    const [playlistName, setPlatlistName] = useState("");
 
     useEffect(()=>{
 
@@ -75,6 +76,13 @@ function MakeOrEdit(){
         });
     };
 
+    const handleSubmit = () => {
+        if (playlist && playlist.length > 0){
+            const newPlaylist = {name: playlistName, tracks: playlist};
+            onSubmit(newPlaylist);
+        };
+    };
+
     return (
         <div className="M&E-container">
             <div className="search-bar">
@@ -100,7 +108,12 @@ function MakeOrEdit(){
                     }
                 </div>
                 <div className="edit-and-make">
-                    <input/>
+                    <input 
+                        className="playlist-name"
+                        placeholder="Playlist Name"
+                        value={playlistName}
+                        onChange={(letter) => setPlatlistName(letter.target.value)}
+                    />
                     {
                         playlist.map((track, index) => (
                             <div key={index}>
@@ -110,7 +123,10 @@ function MakeOrEdit(){
                             </div>
                         ))
                     }
-                    <button>Submit</button>
+                    <button 
+                        onClick={handleSubmit} 
+                        className="submit-playlit"
+                    >Submit</button>
                 </div>
             </div>
         </div>

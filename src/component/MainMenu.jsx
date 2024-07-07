@@ -4,20 +4,38 @@ import MakeOrEdit from "./MakeOrEdit";
 function MainMenu(){
 
     const [beingWorked, setBeingWorked] = useState(false);
+    const [playlists, setPlaylists] = useState([]);
 
-    function handleOnClick(){
+    const handleOnClick = () => {
         setBeingWorked(!beingWorked);
     };  
+
+    const addPlaylist = (newPlaylist) => {
+        setPlaylists([...playlists, newPlaylist]);
+        setBeingWorked(false);
+    };
     
     if (beingWorked){
-        return <MakeOrEdit />;
+        return <MakeOrEdit onSubmit={addPlaylist} />;
     }; 
 
     return (
         <div className="main-container">
             <button onClick={handleOnClick}>Create A Playlist</button>
             <div className="playlist-cards">
-                <h2>nothing</h2>
+                {
+                    playlists.length === 0 
+                    ? <h2>No Playlists Made yet</h2> 
+                    : (playlists.map((playlist, index) => (
+                        <div 
+                            key={index} 
+                            className="playlist-card"
+                        >
+                            <h2>{playlist.name}</h2>
+                            <h3>{`${playlist.tracks.length} Song`}</h3>
+                        </div>
+                    )))
+                }
             </div>
         </div>
     );

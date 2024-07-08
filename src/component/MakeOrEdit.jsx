@@ -1,42 +1,42 @@
 import React, {useState, useEffect} from "react";
 
-function MakeOrEdit({onSubmit}){
+function MakeOrEdit({onSubmit, playlistToEdit}){
 
     const [token, setToken] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [tracks, setTracks] = useState([]);
     const [playlist, setPlaylist] = useState([]);
-    const [playlistName, setPlatlistName] = useState("");
-
-    useEffect(()=>{
-
-        async function GetAPI(){
+    const [playlistName, setPlaylistName] = useState("");
+    useEffect(() => {
+        async function GetAPI() {
             const clientId = "6bbfda15553946d29326923d4beb6817";
             const clientSecret = "88b9f1d47ec24fc7bd3be7d80f2f076f";
-            const encodeData = btoa(`${clientId}:${clientSecret}`);
+            const encodedData = btoa(`${clientId}:${clientSecret}`);
 
             try {
                 const response = await fetch('https://accounts.spotify.com/api/token', {
-                    method: 'POST', 
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        'Authorization': `Basic ${encodeData}`
+                        'Authorization': `Basic ${encodedData}`
                     },
                     body: 'grant_type=client_credentials'
                 });
-            
+
                 const data = await response.json();
                 setToken(data.access_token);
-                // console.log("Access token:", data.access_token);
-
-            } catch(e){
+            } catch (e) {
                 console.error('Error fetching the token:', e);
             }
-        };
+        }
 
         GetAPI();
- 
-    }, []);
+
+        if (playlistToEdit) {
+            setPlaylist(Array.isArray(playlistToEdit.tracks) ? playlistToEdit.tracks : []);
+            setPlaylistName(playlistToEdit.name || "");
+        }
+    }, [playlistToEdit]);
 
     const handleSearch = async () => {
         if (!token || !searchTerm) return;
@@ -50,7 +50,6 @@ function MakeOrEdit({onSubmit}){
             });
 
             const data = await response.json();
-            // console.log('Search results:', data);
             setTracks(data.tracks.items);
         } catch (e) {
             console.error('Error searching tracks:', e);
@@ -58,30 +57,36 @@ function MakeOrEdit({onSubmit}){
     };
 
     const handleKeyDown = (e) => {
-        if (e.key === "Enter"){
+        if (e.key === "Enter") {
             handleSearch();
         }
     };
 
     const handleClick = (track) => {
-        setPlaylist((prevPlaylist) => [...prevPlaylist, track]);
+        setPlaylist((prevPlaylist) => {
+            const updatedPlaylist = [...prevPlaylist, track];
+            console.log('Updated playlist after adding:', updatedPlaylist);
+            return updatedPlaylist;
+        });
     };
 
     const handleRemove = (track) => {
         setPlaylist((prevPlaylist) => {
-            const updatedPlaylist = prevPlaylist.filter((song) => (
-                song.id !== track.id
-            ));
+            const updatedPlaylist = prevPlaylist.filter((song) => song.id !== track.id);
+            console.log('Updated playlist after removing:', updatedPlaylist);
             return updatedPlaylist;
         });
     };
 
     const handleSubmit = () => {
-        if (playlist && playlist.length > 0){
-            const newPlaylist = {name: playlistName, tracks: playlist};
+        if (playlistName && playlist.length > 0) {
+            const newPlaylist = { name: playlistName, tracks: playlist };
             onSubmit(newPlaylist);
-        };
+        }
     };
+
+    console.log('Rendering MakeOrEdit with playlist:', playlist);
+
 
     return (
         <div className="M&E-container">
@@ -100,6 +105,10 @@ function MakeOrEdit({onSubmit}){
                     {
                         tracks.map(track => (
                             <div key={track.id}>
+                                <img 
+                                    id="album" 
+                                    src={track.album.images[0]?.url} alt={`${track.name} album cover`} 
+                                />
                                 <h3>{track.name}</h3>
                                 <h5 onClick={() => handleClick(track)}>+</h5>
                                 <h4>{track.artists[0].name}</h4>
@@ -112,11 +121,15 @@ function MakeOrEdit({onSubmit}){
                         className="playlist-name"
                         placeholder="Playlist Name"
                         value={playlistName}
-                        onChange={(letter) => setPlatlistName(letter.target.value)}
+                        onChange={(letter) => setPlaylistName(letter.target.value)}
                     />
                     {
                         playlist.map((track, index) => (
                             <div key={index}>
+                                <img 
+                                    id="album" 
+                                    src={track.album.images[0]?.url} alt={`${track.name} album cover`} 
+                                />
                                 <h3>{track.name}</h3>
                                 <h5 onClick={() => handleRemove(track)}>-</h5>
                                 <h4>{track.artists[0].name}</h4>

@@ -14,6 +14,10 @@ function Jamz(){
             <main>
                 <MainMenu />
             </main>
+            <footer>
+                <p>By ZR</p>
+                <p>Jul 8th 2024</p>
+            </footer>
         </div>
     ); 
 };

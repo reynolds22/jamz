@@ -50,3 +50,8 @@ header h1{
 .playlist-cards, h5{
     border: 2px solid black;
 }
+
+#album{
+    height: 100px;
+    width: 100px;
+}

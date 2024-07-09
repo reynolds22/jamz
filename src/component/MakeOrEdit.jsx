@@ -1,14 +1,14 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import "./MakeEditStyle.css";
 
-function MakeOrEdit({onSubmit, playlistToEdit}){
-
+function MakeOrEdit({ onSubmit, playlistToEdit }) {
     const [token, setToken] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [tracks, setTracks] = useState([]);
     const [playlist, setPlaylist] = useState([]);
     const [playlistName, setPlaylistName] = useState("");
 
-// First useEffect: Fetch Spotify API token and set playlist to edit
+    // First useEffect: Fetch Spotify API token and set playlist to edit
     useEffect(() => {
         async function GetAPI() {
             const clientId = "6bbfda15553946d29326923d4beb6817";
@@ -33,14 +33,15 @@ function MakeOrEdit({onSubmit, playlistToEdit}){
         }
 
         GetAPI();
-// this here is if a playlist is being edited it retrieves the data so you know the original playlist name and songs.
+
+        // Set playlist to edit
         if (playlistToEdit) {
             setPlaylist(Array.isArray(playlistToEdit.tracks) ? playlistToEdit.tracks : []);
             setPlaylistName(playlistToEdit.name || "");
         }
     }, [playlistToEdit]);
 
-// if you typed something in the search and we have the API tolken to search this will retrieve the data from the search.
+    // Handle search
     const handleSearch = async () => {
         if (!token || !searchTerm) return;
 
@@ -59,32 +60,30 @@ function MakeOrEdit({onSubmit, playlistToEdit}){
         }
     };
 
-// takes down each key and if enter is hit it activates search by calling handleSearch.
+    // Handle key down
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
             handleSearch();
         }
     };
 
-// Handles the click on the plus on a song in results and adds the song to the playlist your making. 
+    // Handle click on track
     const handleClick = (track) => {
         setPlaylist((prevPlaylist) => {
             const updatedPlaylist = [...prevPlaylist, track];
-            // console.log('Updated playlist after adding:', updatedPlaylist);
             return updatedPlaylist;
         });
     };
 
-// when the minus sign is clicked from a song in your playlist this removes it.
+    // Handle remove track
     const handleRemove = (track) => {
         setPlaylist((prevPlaylist) => {
             const updatedPlaylist = prevPlaylist.filter((song) => song.id !== track.id);
-            // console.log('Updated playlist after removing:', updatedPlaylist);
             return updatedPlaylist;
         });
     };
 
-// when you are done with the playlist and you hit submit and this will use on submit to trancefer this playlist to MainMenu.
+    // Handle submit
     const handleSubmit = () => {
         if (playlistName && playlist.length > 0) {
             const newPlaylist = { name: playlistName, tracks: playlist };
@@ -92,16 +91,13 @@ function MakeOrEdit({onSubmit, playlistToEdit}){
         }
     };
 
-    // console.log('Rendering MakeOrEdit with playlist:', playlist);
-
-// the return to render the editing page and tying all the functions and states together.
     return (
-        <div className="M&E-container">
+        <div className="ME-container">
             <div className="search-bar">
-                <input 
-                    placeholder="Search song"
+                <input
+                    placeholder="Search song/artist"
                     value={searchTerm}
-                    onChange={(e)=> setSearchTerm(e.target.value)}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     onKeyDown={handleKeyDown}
                 />
                 <button onClick={handleSearch}>Search</button>
@@ -111,20 +107,23 @@ function MakeOrEdit({onSubmit, playlistToEdit}){
                     <h2>Results</h2>
                     {
                         tracks.map(track => (
-                            <div key={track.id}>
-                                <img 
-                                    id="album" 
-                                    src={track.album.images[0]?.url} alt={`${track.name} album cover`} 
+                            <div className="r-card" key={track.id}>
+                                <img
+                                    id="album"
+                                    src={track.album.images[0]?.url}
+                                    alt={`${track.name} album cover`}
                                 />
-                                <h3>{track.name}</h3>
+                                <div className="name/artist">
+                                    <h3>{track.name}</h3>
+                                    <h4>{track.artists[0].name}</h4>
+                                </div>
                                 <h5 onClick={() => handleClick(track)}>+</h5>
-                                <h4>{track.artists[0].name}</h4>
                             </div>
                         ))
                     }
                 </div>
                 <div className="edit-and-make">
-                    <input 
+                    <input
                         className="playlist-name"
                         placeholder="Playlist Name"
                         value={playlistName}
@@ -132,25 +131,28 @@ function MakeOrEdit({onSubmit, playlistToEdit}){
                     />
                     {
                         playlist.map((track, index) => (
-                            <div key={index}>
-                                <img 
-                                    id="album" 
-                                    src={track.album.images[0]?.url} alt={`${track.name} album cover`} 
+                            <div className="r-card" key={index}>
+                                <img
+                                    id="album"
+                                    src={track.album.images[0]?.url}
+                                    alt={`${track.name} album cover`}
                                 />
-                                <h3>{track.name}</h3>
+                                <div className="name/artist">
+                                    <h3>{track.name}</h3>
+                                    <h4>{track.artists[0].name}</h4>
+                                </div>
                                 <h5 onClick={() => handleRemove(track)}>-</h5>
-                                <h4>{track.artists[0].name}</h4>
                             </div>
                         ))
                     }
-                    <button 
-                        onClick={handleSubmit} 
+                    <button
+                        onClick={handleSubmit}
                         className="submit-playlit"
-                    >Submit</button>
+                    >Submit Playlist</button>
                 </div>
             </div>
         </div>
     );
-};
+}
 
 export default MakeOrEdit;

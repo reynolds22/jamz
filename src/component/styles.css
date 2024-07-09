@@ -1,6 +1,7 @@
 html, body {
     height: 100%;
     margin: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 header{
@@ -79,8 +80,8 @@ main p {
     letter-spacing: 1px;
     font-weight: bold;
     margin: 0 auto;
-    margin-top: 50px;
-    background-color: rgba(95, 0, 95, 0.4);
+    margin-top: 100px;
+    background-color: rgba(95, 0, 95, 0.6);
     padding: 30px;
     border-radius: 5px;
     box-shadow: 
@@ -107,7 +108,7 @@ footer p{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgba(95, 0, 95, 0.4);
+    background-color: rgba(95, 0, 95, 0.6);
     width: 60%;
     margin: 0 auto;
     margin-top: 50px;
@@ -115,7 +116,7 @@ footer p{
     box-shadow: 
         -5px 0 3px rgba(0, 0, 0, 0.5),  /* Left shadow */
         5px 0 3px rgba(0, 0, 0, 0.5),   /* Right shadow */
-        0 5px 3px rgba(0, 0, 0, 0.5);   /* Bottom shadow */
+        3px 5px 3px rgba(0, 0, 0, 0.5);   /* Bottom shadow */
 }
 
 .main-container button{
@@ -126,7 +127,8 @@ footer p{
     margin: 20px 0 0;
     background-color: rgba(255, 255, 255, 0);
     border: none;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    border-bottom: 3px solid black;
     cursor: pointer;
 }
 
@@ -190,7 +192,6 @@ button .words{
     margin-left: 40px;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .playlist-card div h3{
@@ -213,35 +214,165 @@ button .words{
 }
 
 
+.top-options{
+    margin: 65px auto 50px;
+    display: flex;
+    justify-content: space-between;
+    width: 99%;
+}
 
+.top-options button{
+    border-radius: 7px;
+    width: 7%;
+    height: 40px;
+    background-color: rgb(176, 46, 242);
+    border: 1px solid black;
+}
 
+.top-options button:hover{
+    background-color: black;
+    border: 2px solid white;
+}
 
+.top-options .button-one{
+    font-size: 15px;
+    padding: 2px;
+}
 
+.top-options .button-one:hover{
+    color: white;
+}
 
+.top-options .button-two{
+    color: white;
+    font-size: 17px;
+}
 
+.top-options .button-two:hover{
+    color: gold;
+    border: 2px dotted gold;
+}
 
+.top-options .button-three{
+    color: red;
+    font-size: 16px;
+}
 
+.top-options .button-three:hover{
+    border: 5px solid red;
+}
 
-.search-bar{
-    margin: 10px 0;
+.big-picture{
+    text-align: center;
+}
+
+.playlist-info{
+    border-bottom: 3px solid black;
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.big-picture img{
+    width: 40%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.playlist-info h2{
+    margin: 20px auto;
+    text-align: center;
+    color: white;
+    font-size: 35px;
+    color: white;
+    width: 50%;
+    text-shadow: 
+        -1px -1px 0 #000, /* Top-left shadow */
+        1px -1px 0 #000, /* Top-right shadow */
+        -1px 1px 0 #000, /* Bottom-left shadow */
+        1px 1px 0 #000; /* Bottom-right shadow */
+}
+
+.buttons{
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.buttons button{
+    padding: 10px;
+    width: 15%;
+    font-size: 17px;
+    background-color: rgb(176, 46, 242);
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+
+.buttons .b-one{
+    margin-left: 250px;
+}
+
+.buttons .b-two{
+    margin-right: 250px;
+}
+
+.buttons button:hover{
+    border: 2px solid white;
+    background-color: black;
+}
+
+.whats-working{
+    padding: 0 0 30px;
+    width: 90%;
+    text-align: center;
+    margin: 0 auto 20px;
+    color: rgb(173, 172, 172);
+    text-shadow: 
+    -1px -1px 0 #000, /* Top-left shadow */
+    1px -1px 0 #000, /* Top-right shadow */
+    -1px 1px 0 #000, /* Bottom-left shadow */
+    1px 1px 0 #000000; /* Bottom-right shadow */
+    font-size: 17px;
+}
+
+.playlist-songs{
+    margin-bottom: 20px;
+}
+
+.track-item{
+    border: 2px solid black;
+    width: 60%;
+    height: 150px;
+    margin: 10px auto;
+    display: flex;
+}
+
+.track-item img{
+    width: auto;
+    height: 90%;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.track-item div{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    color: white;
+    margin-right: 150px;
+}
+
+.track-item{
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-.search-bar input{
-    margin-bottom: 10px;
+.track-item h2{
+    margin-right: 30px;
+    color: white;
+    font-size: 30px;
 }
-
-.edit-container{
-    display: flex;
-    justify-content: space-around;
-    width: 90%;
-    margin: 0 auto;
-}
-
-.edit-container div{
-    border: 3px solid black;
-    width: 45%;
-}
-

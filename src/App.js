@@ -2,7 +2,7 @@ import React from "react";
 import Jamz from "./component";
 
 function App() {
-  return <Jamz/>;
+  return <Jamz/>;// Renders the Jamz App 
 }
 export default App;
 

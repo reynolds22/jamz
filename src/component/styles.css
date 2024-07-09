@@ -1,28 +1,226 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 header{
     display: flex;
+    justify-content: center;
+    background: black;
+    color: white;
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+}
+
+header h1 {
+    margin: 10px 0
+}
+
+header p {
+    margin: 10px 0;
+    font-size: 2rem;
+    color: rgb(176, 46, 242);
+    font-weight: bold;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('./iStock-1370884809-scaled.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(6px);
+    z-index: -1; 
+    pointer-events: none;
+}
+
+#title-phrase{
+    color: white;
+    width: 50%;
+    text-align: center;
+    letter-spacing: 1px;
+    font-size: 35px;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 5px;
+    text-shadow: 
+        -1px -1px 0 #000, /* Top-left shadow */
+        1px -1px 0 #000, /* Top-right shadow */
+        -1px 1px 0 #000, /* Bottom-left shadow */
+        1px 1px 0 #000; /* Bottom-right shadow */
+}
+
+main {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+main p {
+    color: white;
+    width: 50%;
+    text-align: center;
+    font-size: larger;
+    letter-spacing: 1px;
+    font-weight: bold;
+    margin: 0 auto;
+    margin-top: 50px;
+    background-color: rgba(95, 0, 95, 0.4);
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 
+        -5px 0 3px rgba(0, 0, 0, 0.5), 
+        5px 0 3px rgba(0, 0, 0, 0.5),   
+        0 5px 3px rgba(0, 0, 0, 0.5);  
+    margin-bottom: 20px;
+
+}
+
+footer {
+    background-color: black;
+    color: white;
+    z-index: 1; 
+    display: flex;
     justify-content: space-between;
-    background-color: lightblue;
 }
 
-header h1{
-    margin: 10px auto;
-}
-
-.container{
-    background-color: pink;
-    min-height: calc(100vh);
+footer p{
+    padding: 0 30px;
 }
 
 .main-container{
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: rgba(95, 0, 95, 0.4);
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 50px;
+    border-radius: 5px;
+    box-shadow: 
+        -5px 0 3px rgba(0, 0, 0, 0.5),  /* Left shadow */
+        5px 0 3px rgba(0, 0, 0, 0.5),   /* Right shadow */
+        0 5px 3px rgba(0, 0, 0, 0.5);   /* Bottom shadow */
 }
 
 .main-container button{
-    margin-top: 20px;
-    width: 30%;
+    display: flex;
+    align-items: center;
+    width: 60%;
+    height: 100px;
+    margin: 20px 0 0;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    border: 1px solid black;
+    cursor: pointer;
 }
+
+.main-container button:hover{
+    background-color: black;
+    border: none;
+}
+
+button .plus{
+    background-color: black;
+    padding: 20px 30px;
+    border-radius: 5px;
+    color: white;
+    font-size: 40px;
+}
+
+button .words{
+    margin-left: 30px;
+    font-size: 20px;
+    color: white;
+}
+
+.playlist-cards h2{
+    color: white;
+    border: none;
+    text-align: center;
+}
+
+.playlist-cards{
+    width: 60%;
+    margin: 20px 20px 20px;
+}
+
+.playlist-card{
+    display: flex;
+    align-items: center;
+    height: 100px;
+    margin: 10px 0 0;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    border-bottom: 3px solid black;
+    cursor: pointer;
+}
+
+.playlist-card img{
+    height: 80px;
+    width: 80px;
+    border-radius: 5px;
+    color: white;
+    font-size: 40px;
+    margin-left: 10px;
+}
+
+.playlist-card:hover{
+    background-color: black;
+    border: none;
+}
+
+.playlist-card div{
+    color: white;
+    margin-left: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.playlist-card div h3{
+    font-size: x-large;
+    font-weight: 500;
+    margin: 10px 0 0;
+}
+
+.playlist-card div h4{
+    font-size: medium;
+    font-weight: 300;
+    margin: 5px 0 10px;
+}
+
+.playlist-card h1{
+    color: white;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: 30px;
+}
+
+
+
+
+
+
+
+
+
+
 
 .search-bar{
     margin: 10px 0;
@@ -47,11 +245,3 @@ header h1{
     width: 45%;
 }
 
-.playlist-cards, h5{
-    border: 2px solid black;
-}
-
-#album{
-    height: 100px;
-    width: 100px;
-}
